@@ -10,8 +10,10 @@ const CustomButton = ({
   fullWidth,
   icon,
   handleClick,
+  disabled,
 }: CustomButtonProps) => (
   <Button
+    disabled={disabled}
     sx={{
       flex: fullWidth ? 1 : "unset",
       padding: "10px 15px",
@@ -29,6 +31,7 @@ const CustomButton = ({
       },
     }}
     onClick={handleClick}
+    type={type === "submit" ? "submit" : "button"}
   >
     {icon} {title}
   </Button>
