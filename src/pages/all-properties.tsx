@@ -1,15 +1,16 @@
-import React, { useMemo } from "react";
 import { Add } from "@mui/icons-material";
 import { useTable } from "@pankod/refine-core";
 import {
   Box,
-  MenuItem,
-  Select,
   Stack,
-  TextField,
   Typography,
+  TextField,
+  Select,
+  MenuItem,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
+import { useMemo } from "react";
+
 import { PropertyCard, CustomButton } from "components";
 
 const AllProperties = () => {
@@ -31,12 +32,7 @@ const AllProperties = () => {
 
   const currentPrice = sorter.find((item) => item.field === "price")?.order;
   const toggleSort = (field: string) => {
-    setSorter([
-      {
-        field,
-        order: currentPrice === "asc" ? "desc" : "asc",
-      },
-    ]);
+    setSorter([{ field, order: currentPrice === "asc" ? "desc" : "asc" }]);
   };
 
   const currentFilterValues = useMemo(() => {
@@ -56,14 +52,9 @@ const AllProperties = () => {
 
   return (
     <Box>
-      <Box mt="0px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
+      <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
         <Stack direction="column" width="100%">
-          <Typography
-            fontSize={25}
-            fontWeight={700}
-            color="#11142d"
-            ml={{ xs: "30px", lg: 0 }}
-          >
+          <Typography fontSize={25} fontWeight={700} color="#11142d">
             {!allProperties.length
               ? "There are no properties"
               : "All Properties"}
@@ -84,9 +75,9 @@ const AllProperties = () => {
             >
               <CustomButton
                 title={`Sort price ${currentPrice === "asc" ? "↑" : "↓"}`}
+                handleClick={() => toggleSort("price")}
                 backgroundColor="#475be8"
                 color="#fcfcfc"
-                handleClick={() => toggleSort("price")}
               />
               <TextField
                 variant="outlined"
@@ -165,8 +156,8 @@ const AllProperties = () => {
             key={property._id}
             id={property._id}
             title={property.title}
-            price={property.price}
             location={property.location}
+            price={property.price}
             photo={property.photo}
           />
         ))}
@@ -175,11 +166,9 @@ const AllProperties = () => {
         <Box display="flex" gap={2} mt={3} flexWrap="wrap">
           <CustomButton
             title="Previous"
+            handleClick={() => setCurrent((prev) => prev - 1)}
             backgroundColor="#475be8"
             color="#fcfcfc"
-            handleClick={() => {
-              setCurrent((prev) => prev - 1);
-            }}
             disabled={!(current > 1)}
           />
           <Box
@@ -187,18 +176,16 @@ const AllProperties = () => {
             alignItems="center"
             gap="5px"
           >
-            Page {""}{" "}
+            Page
             <strong>
               {current} of {pageCount}
             </strong>
           </Box>
           <CustomButton
             title="Next"
+            handleClick={() => setCurrent((prev) => prev + 1)}
             backgroundColor="#475be8"
             color="#fcfcfc"
-            handleClick={() => {
-              setCurrent((prev) => prev + 1);
-            }}
             disabled={current === pageCount}
           />
           <Select
