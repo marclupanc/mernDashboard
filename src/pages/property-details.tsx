@@ -13,12 +13,6 @@ import {
 
 import { CustomButton } from "components";
 
-function checkImage(url: any) {
-  const img = new Image();
-  img.src = url;
-  return img.width !== 0 && img.height !== 0;
-}
-
 const PropertyDetails = () => {
   const navigate = useNavigate();
   const { data: user } = useGetIdentity();
@@ -58,12 +52,7 @@ const PropertyDetails = () => {
   };
 
   return (
-    <Box
-      borderRadius="15px"
-      padding="20px"
-      bgcolor="#FCFCFC"
-      width="fit-content"
-    >
+    <Box borderRadius="15px" padding="20px" bgcolor="#FCFCFC" width="auto">
       <Typography fontSize={25} fontWeight={700} color="#11142D">
         Details
       </Typography>
@@ -74,7 +63,7 @@ const PropertyDetails = () => {
         flexDirection={{ xs: "column", lg: "row" }}
         gap={4}
       >
-        <Box flex={1} maxWidth={764}>
+        <Box flex={1} maxWidth={1920}>
           <img
             src={propertyDetails.photo}
             alt="property_details-img"
@@ -185,9 +174,8 @@ const PropertyDetails = () => {
             >
               <img
                 src={
-                  checkImage(propertyDetails.creator.avatar)
-                    ? propertyDetails.creator.avatar
-                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                  propertyDetails?.creator.avatar ??
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
                 }
                 alt="avatar"
                 width={90}
